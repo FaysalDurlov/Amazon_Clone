@@ -40,21 +40,41 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-spacer"></div>
-
+          
           <div class="added-to-cart">
             <img src="images/icons/checkmark.png">
             Added
           </div>
 
           <button class="add-to-cart-button button-primary js-add-to-cart"
-          data-product-name="${product.name}">
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`;
 });
-document.querySelector('.products-grid').innerHTML = productsHTML;
+document.querySelector('.products-grid').innerHTML = productsHTML; // Here I just updated product html dymnamicly
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
   button.addEventListener('click',()=>{
-    console.log('Added Product');
+    const productId = button.dataset.productId;
+    let matchedItem;
+    cart.forEach((item)=>{
+      if(item.productId === productId){
+        matchedItem = item;
+      }
+    });
+    if(matchedItem){
+      matchedItem.Quantity+=1;
+    }else{
+      cart.push({
+      productId,
+      Quantity: 1
+      });
+    };
+    let cartQuantity = 0;
+    cart.forEach((item)=>{
+      cartQuantity+=item.Quantity;
+    });
+    document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+    console.log(cart);
   });
 });
