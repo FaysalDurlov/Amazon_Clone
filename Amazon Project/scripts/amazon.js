@@ -1,4 +1,5 @@
 let productsHTML = '';
+let timeoutId;
 
 products.forEach((product)=>{
     productsHTML+=`
@@ -25,7 +26,7 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js_quantity_selector_${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -41,7 +42,7 @@ products.forEach((product)=>{
 
           <div class="product-spacer"></div>
           
-          <div class="added-to-cart">
+          <div class="added-to-cart js_added_massage_${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -76,5 +77,13 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     });
     document.querySelector('.cart-quantity').innerHTML = cartQuantity;
     console.log(cart);
+    let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
+    document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
+    console.log(value);
+    document.querySelector(`.js_added_massage_${productId}`).classList.add('opacityClass');
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(()=>{
+      document.querySelector(`.js_added_massage_${productId}`).classList.remove('opacityClass');
+    },2000);
   });
 });
