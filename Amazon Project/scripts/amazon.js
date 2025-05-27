@@ -1,5 +1,10 @@
+import {cart, addToCart} from '../data/cart.js';
+import { products } from '../data/products.js';
+
+
 let productsHTML = '';
 let timeoutId;
+
 
 products.forEach((product)=>{
     productsHTML+=`
@@ -54,29 +59,24 @@ products.forEach((product)=>{
         </div>`;
 });
 document.querySelector('.products-grid').innerHTML = productsHTML; // Here I just updated product html dymnamicly
-document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
-  button.addEventListener('click',()=>{
-    const productId = button.dataset.productId;
-    let matchedItem;
-    cart.forEach((item)=>{
-      if(item.productId === productId){
-        matchedItem = item;
-      }
-    });
-    if(matchedItem){
-      matchedItem.Quantity+=1;
-    }else{
-      cart.push({
-      productId,
-      Quantity: 1
-      });
-    };
-    let cartQuantity = 0;
+
+
+function UpdateCartQuantity(){
+  let cartQuantity = 0;
     cart.forEach((item)=>{
       cartQuantity+=item.Quantity;
     });
     document.querySelector('.cart-quantity').innerHTML = cartQuantity;
     console.log(cart);
+
+};
+
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+  button.addEventListener('click',()=>{
+    const productId = button.dataset.productId;
+    addToCart(productId);
+    UpdateCartQuantity();
+    
     let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
     document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
     console.log(value);
