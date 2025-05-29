@@ -1,4 +1,4 @@
-import {cart, removeFromCart, UpdateCartCheckout} from '../data/cart.js';
+import {cart, removeFromCart, UpdateCartCheckout, UpdateCartQuantityFromCheckout} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -30,11 +30,13 @@ cart.forEach((cartItem)=>{
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label">${cartItem.Quantity}</span>
+                    Quantity: <span class="quantity-label js_quantity_label_${matchedProduct.id}">${cartItem.Quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js_update_Link" data-cart-product-id="${matchedProduct.id}">
                     Update
                   </span>
+                  <input class="quantity-input js_input_new_quantity_${matchedProduct.id}">
+                  <span class="save-quantity-link link-primary js_save_link js_cart_quantity_save_${matchedProduct.id}" data-product-save-id="${matchedProduct.id}">Save</span>
                   <span class="delete-quantity-link link-primary js_delete_link" data-product-id="${matchedProduct.id}">
                     Delete
                   </span>
@@ -99,3 +101,33 @@ document.querySelectorAll('.js_delete_link').forEach((link)=>{
     });
 });
 document.querySelector('.js_checkout_item_quantity').innerHTML=`${UpdateCartCheckout()} items`;
+document.querySelectorAll('.js_update_Link').forEach((link)=>{
+  link.addEventListener('click',()=>{
+    const container = document.querySelector(`.js_cart_item_${link.dataset.cartProductId}`);
+    container.classList.add('is-editing-quantity');
+  });
+});
+document.querySelectorAll('.js_save_link').forEach((SaveLink)=>{
+  const cartItemId = SaveLink.dataset.productSaveId;
+  function saveOperation(){
+    const saveContainer = document.querySelector(`.js_cart_item_${SaveLink.dataset.productSaveId}`);
+    const newQuantity = Number(document.querySelector(`.js_input_new_quantity_${SaveLink.dataset.productSaveId}`).value);
+    if(newQuantity>0){
+      document.querySelector(`.js_quantity_label_${SaveLink.dataset.productSaveId}`).innerHTML = newQuantity;
+      UpdateCartQuantityFromCheckout(SaveLink.dataset.productSaveId,newQuantity);
+      const cartTotalQuantity = UpdateCartCheckout();
+      document.querySelector('.js_checkout_item_quantity').innerHTML=`${cartTotalQuantity} items`;
+      saveContainer.classList.remove('is-editing-quantity');
+    }else{
+      alert("Can't Update Quantity to 0 or Bellow. Try Deleting or Select a Valid Number !");
+    }
+    }
+  SaveLink.addEventListener('click',saveOperation);
+  const inputField = document.querySelector(`.js_input_new_quantity_${cartItemId}`);
+  inputField.addEventListener('keydown',(event)=>{
+    if(event.key === 'Enter'){
+      saveOperation();
+    }
+  })
+});
+

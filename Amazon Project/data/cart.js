@@ -10,7 +10,7 @@ if(!cart){
       Quantity: 3
     }
   ];
-}
+};
 
 export function addToCart(productId){
     let matchedItem;
@@ -43,11 +43,19 @@ export function removeFromCart(productId){
 
 function saveToStorage(){
   localStorage.setItem('cart',JSON.stringify(cart));
-}
+};
 export function UpdateCartCheckout(){
   let cart_Quantity = 0;
     cart.forEach((item)=>{
       cart_Quantity+=item.Quantity;
     });
   return cart_Quantity;
-}
+};
+export function UpdateCartQuantityFromCheckout(id,number){
+  cart.forEach((item)=>{
+    if(item.productId === id){
+      item.Quantity = number;
+    };
+  });
+  saveToStorage();
+};
