@@ -2,6 +2,13 @@ import {cart, removeFromCart, UpdateCartCheckout, UpdateCartQuantityFromCheckout
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
+
+const today = dayjs();
+const deliveryDate = today.add(7,'days');
+console.log(deliveryDate.format('dddd, MMMM D'));
+
+
+
 let cartSummaryHTML = '';
 cart.forEach((cartItem)=>{
     const product_id = cartItem.productId;
@@ -128,6 +135,6 @@ document.querySelectorAll('.js_save_link').forEach((SaveLink)=>{
     if(event.key === 'Enter'){
       saveOperation();
     }
-  })
+  });
 });
 
