@@ -91,7 +91,7 @@ function deliveryOptionHTML(matchingProduct,cartItem){
 
     const isChecked = deliveryOption.id === cartItem.deliveryOptionsId;
 
-    html+=`<div class="delivery-option js_delivery_option">
+    html+=`<div class="delivery-option js_delivery_option" data-product-id="${matchingProduct.id}" data-delivery-option-id = "${deliveryOption.id}">
       <input type="radio" ${isChecked ? 'checked' : ''} class="delivery-option-input"
         name="delivery-option-${matchingProduct.id}">
       <div>
@@ -153,6 +153,7 @@ document.querySelectorAll('.js_save_link').forEach((SaveLink)=>{
 
 document.querySelectorAll('.js_delivery_option').forEach((eachDeliveryOption)=>{
   eachDeliveryOption.addEventListener('click',()=>{
-    updateDeliveryOptionId();
+    const {productId,deliveryOptionId} = eachDeliveryOption.dataset;
+    updateDeliveryOptionId(productId,deliveryOptionId);
   })
 })
