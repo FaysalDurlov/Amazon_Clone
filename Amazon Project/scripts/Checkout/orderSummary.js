@@ -1,38 +1,26 @@
 import {cart, removeFromCart, UpdateCartCheckout, UpdateCartQuantityFromCheckout, updateDeliveryOptionId} from '../../data/cart.js';
-import {products} from '../../data/products.js';
+import {products, getProductFromList} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
-import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import {deliveryOptions} from '../../data/deliveryOptions.js';
+import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import {renderPaymentSummary} from './paymentSummary.js';
 
-hello();
-const today = dayjs();
-const deliveryDate = today.add(7,'days');
-console.log(deliveryDate.format('dddd, MMMM D'));
 
 
 export function renderOrderSummary(){
   let cartSummaryHTML = '';
   cart.forEach((cartItem)=>{
       const product_id = cartItem.productId;
-      let matchedProduct;
-      products.forEach((product)=>{
-          if(product.id === product_id){
-              matchedProduct = product
-          }
-      });
+
+      let matchedProduct = getProductFromList(product_id);
 
       // Delivery Option "Delivery date"
       const deliveryOptionId = cartItem.deliveryOptionsId;
-      let deliveryOption;
-      deliveryOptions.forEach((Option)=>{
-        if (Option.id === deliveryOptionId){
-          deliveryOption = Option;
-        }
-      });
+      let deliveryOption = getDeliveryOption(deliveryOptionId);
       const today = dayjs();
       const deliveryDate = today.add(deliveryOption.deliveryDays,'days');
       const deliveryDateString = deliveryDate.format('dddd, MMMM D');
+
       // This part is for Delivery Date Choosen by user
 
       cartSummaryHTML+=
@@ -118,6 +106,7 @@ export function renderOrderSummary(){
         const container = document.querySelector(`.js_cart_item_${productID}`);
         container.remove();
         document.querySelector('.js_checkout_item_quantity').innerHTML=`${UpdateCartCheckout()} items`;
+        renderPaymentSummary();
       });
   });
   document.querySelector('.js_checkout_item_quantity').innerHTML=`${UpdateCartCheckout()} items`;
@@ -138,6 +127,7 @@ export function renderOrderSummary(){
         const cartTotalQuantity = UpdateCartCheckout();
         document.querySelector('.js_checkout_item_quantity').innerHTML=`${cartTotalQuantity} items`;
         saveContainer.classList.remove('is-editing-quantity');
+        renderPaymentSummary();
       }else{
         alert("Can't Update Quantity to 0 or Bellow. Try Deleting or Select a Valid Number !");
       }
@@ -156,6 +146,7 @@ export function renderOrderSummary(){
       const {productId,deliveryOptionId} = eachDeliveryOption.dataset;
       updateDeliveryOptionId(productId,deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     })
   })
 };
