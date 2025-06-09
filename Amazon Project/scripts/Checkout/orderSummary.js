@@ -4,6 +4,7 @@ import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from './paymentSummary.js';
+import {renderCheckoutHeader} from "./checkoutHeader.js";
 
 
 
@@ -95,21 +96,23 @@ export function renderOrderSummary(){
     return html;
   };
 
-
-
   document.querySelector('.js_order_summary').innerHTML = cartSummaryHTML;
   document.querySelectorAll('.js_delete_link').forEach((link)=>{
       link.addEventListener('click',()=>{
           const productID = link.dataset.productId;
           removeFromCart(productID);
 
-        const container = document.querySelector(`.js_cart_item_${productID}`);
-        container.remove();
-        document.querySelector('.js_checkout_item_quantity').innerHTML=`${UpdateCartCheckout()} items`;
-        renderPaymentSummary();
+        // const container = document.querySelector(`.js_cart_item_${productID}`);
+        // container.remove();
+        // this Dom isn't Needed Cz we are reloading the cart items again
+        
+        renderOrderSummary();  // reloads the cart Item page
+        renderPaymentSummary(); // reloads the payment Summary
       });
   });
-  document.querySelector('.js_checkout_item_quantity').innerHTML=`${UpdateCartCheckout()} items`;
+
+  renderCheckoutHeader(); // reloads the Checkout Header
+
   document.querySelectorAll('.js_update_Link').forEach((link)=>{
     link.addEventListener('click',()=>{
       const container = document.querySelector(`.js_cart_item_${link.dataset.cartProductId}`);
