@@ -1,6 +1,6 @@
 import {cart, removeFromCart, UpdateCartCheckout, UpdateCartQuantityFromCheckout, updateDeliveryOptionId} from '../../data/cart.js';
 import {products, getProductFromList} from '../../data/products.js';
-import {formatCurrency} from '../utils/money.js';
+import formatCurrency from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from '../../data/deliveryOptions.js';
 import {renderPaymentSummary} from './paymentSummary.js';
@@ -120,20 +120,22 @@ export function renderOrderSummary(){
   });
   document.querySelectorAll('.js_save_link').forEach((SaveLink)=>{
     const cartItemId = SaveLink.dataset.productSaveId;
+
     function saveOperation(){
-      const saveContainer = document.querySelector(`.js_cart_item_${SaveLink.dataset.productSaveId}`);
-      const newQuantity = Number(document.querySelector(`.js_input_new_quantity_${SaveLink.dataset.productSaveId}`).value);
+      const saveContainer = document.querySelector(`.js_cart_item_${cartItemId}`);
+      const newQuantity = Number(document.querySelector(`.js_input_new_quantity_${cartItemId}`).value);
       if(newQuantity>0){
-        document.querySelector(`.js_quantity_label_${SaveLink.dataset.productSaveId}`).innerHTML = newQuantity;
-        UpdateCartQuantityFromCheckout(SaveLink.dataset.productSaveId,newQuantity);
+        document.querySelector(`.js_quantity_label_${cartItemId}`).innerHTML = newQuantity;
+        UpdateCartQuantityFromCheckout(cartItemId,newQuantity);
         const cartTotalQuantity = UpdateCartCheckout();
         document.querySelector('.js_checkout_item_quantity').innerHTML=`${cartTotalQuantity} items`;
         saveContainer.classList.remove('is-editing-quantity');
+        renderOrderSummary();
         renderPaymentSummary();
       }else{
         alert("Can't Update Quantity to 0 or Bellow. Try Deleting or Select a Valid Number !");
-      }
-      }
+      }}
+
     SaveLink.addEventListener('click',saveOperation);
     const inputField = document.querySelector(`.js_input_new_quantity_${cartItemId}`);
     inputField.addEventListener('keydown',(event)=>{
