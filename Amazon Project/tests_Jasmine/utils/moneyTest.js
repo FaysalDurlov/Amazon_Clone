@@ -8,6 +8,6 @@ describe('test Suite: FormatCurrency',()=>{
         expect(formatCurrency(0)).toEqual('0.00');
     });
     it('rounds up to nearest cent',()=>{
-        expect(formatCurrency(2000.5)).toEqual('20.02')
+        expect(formatCurrency(2000.5)).toEqual('20.01')
     });
 });
