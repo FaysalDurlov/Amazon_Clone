@@ -3,7 +3,7 @@ import {loadFromStorage} from "../../../data/cart.js";
 
 describe("Test Suit: Order Summary",()=>{
     it("Displays The Cart",()=>{
-        document.querySelector('.js-class-container').innerHTML = `<div class="js_order_summary"></div>`;
+        document.querySelector('.js_container').innerHTML = '<div class="js_order_summary"></div>';
 
         spyOn(localStorage,"getItem").and.callFake(()=>{
             return JSON.stringify([
