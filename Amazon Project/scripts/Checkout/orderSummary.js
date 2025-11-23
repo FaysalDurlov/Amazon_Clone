@@ -24,7 +24,7 @@ export function renderOrderSummary(){
       // This part is for Delivery Date Choosen by user
 
       cartSummaryHTML+=
-      `<div class="cart-item-container js_cart_item_${matchedProduct.id}">
+      `<div class="cart-item-container js-cart-item-forTest js_cart_item_${matchedProduct.id}">
               <div class="delivery-date">
                 Delivery date: ${deliveryDateString}
               </div>
@@ -43,7 +43,7 @@ export function renderOrderSummary(){
                     $${(formatCurrency(matchedProduct.priceCent)*cartItem.Quantity).toFixed(2)}
                   </div>
 
-                  <div class="product-quantity">
+                  <div class="product-quantity js_product_quantityTest_${matchedProduct.id}">
                     <span>
                       Quantity: <span class="quantity-label js_quantity_label_${matchedProduct.id}">${cartItem.Quantity}</span>
                     </span>
@@ -114,6 +114,7 @@ export function renderOrderSummary(){
 
   document.querySelectorAll('.js_update_Link').forEach((link)=>{
     link.addEventListener('click',()=>{
+      // data-cart-product-id
       const container = document.querySelector(`.js_cart_item_${link.dataset.cartProductId}`);
       container.classList.add('is-editing-quantity');
     });

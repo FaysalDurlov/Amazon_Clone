@@ -2,6 +2,7 @@ import {addToCart, cart, loadFromStorage} from "../../../data/cart.js";
 
 describe("Adding Product TO Cart",()=>{
     it("Adding an Existing Product in the Cart",()=>{
+        // a product that is already in the cart Increase the quantity by 1  
         spyOn(localStorage,"setItem");
 
         spyOn(localStorage,"getItem").and.callFake(()=>{
