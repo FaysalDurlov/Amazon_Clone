@@ -24,7 +24,7 @@ export function renderOrderSummary(){
       // This part is for Delivery Date Choosen by user
 
       cartSummaryHTML+=
-      `<div class="cart-item-container js-cart-item-forTest js_cart_item_${matchedProduct.id}">
+      `<div class="cart-item-container js-each-cart-item-forTest js_cart_item_${matchedProduct.id}">
               <div class="delivery-date">
                 Delivery date: ${deliveryDateString}
               </div>
@@ -52,7 +52,7 @@ export function renderOrderSummary(){
                     </span>
                     <input class="quantity-input js_input_new_quantity_${matchedProduct.id}">
                     <span class="save-quantity-link link-primary js_save_link js_cart_quantity_save_${matchedProduct.id}" data-product-save-id="${matchedProduct.id}">Save</span>
-                    <span class="delete-quantity-link link-primary js_delete_link" data-product-id="${matchedProduct.id}">
+                    <span class="delete-quantity-link link-primary js_delete_link js_deleteTextJasmine_${matchedProduct.id}" data-product-id="${matchedProduct.id}">
                       Delete
                     </span>
                   </div>
