@@ -34,3 +34,13 @@ export function calculateDeliveryDate(deliveryOption){
   const deliveryDateString = deliveryDate.format('dddd, MMMM D');
   return deliveryDateString;
 }
+
+export function isValidDeliveryOptionId(deliveryOptionId){
+  let flag = false
+  deliveryOptions.forEach((option)=>{
+    if(option.id === deliveryOptionId){
+      flag = true
+    }
+  })
+  return flag;
+}

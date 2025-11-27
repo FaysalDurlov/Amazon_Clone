@@ -35,11 +35,11 @@ export function renderOrderSummary(){
 
                 <div class="cart-item-details">
 
-                  <div class="product-name">
+                  <div class="product-name js_productNameTest_jasmine_${matchedProduct.id}">
                     ${matchedProduct.name}
                   </div>
 
-                  <div class="product-price">
+                  <div class="product-price js_productDollarSignTest_jasmine_${matchedProduct.id}">
                     $${(formatCurrency(matchedProduct.priceCent)*cartItem.Quantity).toFixed(2)}
                   </div>
 
@@ -79,16 +79,22 @@ export function renderOrderSummary(){
 
       const isChecked = deliveryOption.id === cartItem.deliveryOptionsId;
 
-      html+=`<div class="delivery-option js_delivery_option" data-product-id="${matchingProduct.id}" data-delivery-option-id = "${deliveryOption.id}">
-        <input type="radio" ${isChecked ? 'checked' : ''} class="delivery-option-input"
+      html+=`
+      <div class="delivery-option js_delivery_option" data-product-id="${matchingProduct.id}" data-delivery-option-id = "${deliveryOption.id}">
+
+        <input type="radio" ${isChecked ? 'checked' : ''} class="delivery-option-input deliveryOption_inputTestJasmine_${deliveryOption.id}_${matchingProduct.id}"
           name="delivery-option-${matchingProduct.id}">
-        <div>
+
+        <div class = "js_deliveryOptionTestJasmine_${deliveryOption.id}_${matchingProduct.id}">
+
           <div class="delivery-option-date">
             ${deliveryDateString}
           </div>
+
           <div class="delivery-option-price">
             ${priceString} Shipping
           </div>
+
         </div>
       </div>`;
     });

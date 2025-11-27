@@ -1,3 +1,4 @@
+import {isValidDeliveryOptionId} from "../data/deliveryOptions.js";
 export let cart;
 loadFromStorage();
 
@@ -75,6 +76,9 @@ export function updateDeliveryOptionId(productId,DeliveryOptionId){
       macthingItem = cartItem;
     }
   });
+  if (!macthingItem || !isValidDeliveryOptionId(DeliveryOptionId)){
+    return;
+  }
   macthingItem.deliveryOptionsId = DeliveryOptionId;
   saveToStorage();
 };

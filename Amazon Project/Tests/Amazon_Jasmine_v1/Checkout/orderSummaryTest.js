@@ -1,4 +1,4 @@
-import {renderOrderSummary} from "../../../scripts/checkout/orderSummary.js";
+import {renderOrderSummary} from "../../../scripts/Checkout/orderSummary.js";
 import {loadFromStorage, cart} from "../../../data/cart.js";
 
 describe("Test Suit: Order Summary",()=>{
@@ -108,5 +108,25 @@ describe("Test Suit: Order Summary",()=>{
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(productId_2);
     // document.querySelector('.js_Order_cart_test_container').innerHTML = '';
+  });
+
+  it("checks the products Names correctsness",()=>{
+    expect(document.querySelector(`.js_productNameTest_jasmine_${productId_1}`).innerText).toEqual("Black and Gray Athletic Cotton Socks - 6 Pairs");
+    expect(document.querySelector(`.js_productNameTest_jasmine_${productId_2}`).innerText).toEqual("Intermediate Size Basketball");
+  });
+
+  it("checking product price Dollar Sign",()=>{
+    expect(document.querySelector(`.js_productDollarSignTest_jasmine_${productId_1}`).innerText).toContain('$21.80')
+    expect(document.querySelector(`.js_productDollarSignTest_jasmine_${productId_2}`).innerText).toContain('$20.95')
+  });
+
+  it("update Delivery Options",()=>{
+    document.querySelector(`.js_deliveryOptionTestJasmine_${3}_${productId_1}`).click();
+    expect(document.querySelector(`.deliveryOption_inputTestJasmine_${3}_${productId_1}`).checked).toEqual(true);
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(productId_1);
+    expect(cart[0].deliveryOptionsId).toEqual("3");
+    expect(document.querySelector(".js_shippingCostTestJasmine").innerText).toEqual("$14.98")
+    expect(document.querySelector(".js_TotalCostCostTestJasmine").innerText).toEqual("$63.50")
   });
 });

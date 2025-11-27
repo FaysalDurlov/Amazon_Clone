@@ -10,4 +10,10 @@ describe("This Is a Suit Which is Used to Give a title/ Discribe My Test. Ex. (M
     it("For Input 2000.5",()=>{
         expect(formatCurrency(2000.5)).toEqual('20.01');
     })
+    it("test case for formatCurrency(2000.4)",()=>{
+        expect(formatCurrency(2000.4)).toEqual('20.00');
+    })
+    it("tests the negative number",()=>{
+        expect(formatCurrency(-3000.4)).toEqual('-30.00');
+    })
 });
