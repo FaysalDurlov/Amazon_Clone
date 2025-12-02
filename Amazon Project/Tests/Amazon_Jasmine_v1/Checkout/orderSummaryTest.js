@@ -7,6 +7,7 @@ describe("Test Suit: Order Summary",()=>{
     const productId_2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d"
 
   beforeEach(()=>{
+    cart.length = 0;
     spyOn(localStorage,'setItem')
 
     document.querySelector('.js_Order_cart_test_container').innerHTML = 

@@ -1,0 +1,127 @@
+import {isValidDeliveryOptionId} from "../data/deliveryOptions.js";
+
+class Cart {
+    // cartItems= undefined;
+    // localStorageKey = undefined;
+
+    cartItems;
+    localStorageKey;   // the fileds of a class in always undefined by default
+
+
+    constructor(localStorageKeyParamiter){
+        this.localStorageKey = localStorageKeyParamiter
+        this.loadFromStorage();
+    }
+
+
+    loadFromStorage(){                                    // Load cart from local storage
+        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+        console.log(this.cartItems)
+        if(!this.cartItems){
+          this.cartItems = [
+            {
+              productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+              Quantity: 2,
+              deliveryOptionsId: '1'
+            },
+            {
+              productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+              Quantity: 1,
+              deliveryOptionsId: '2'
+            }
+          ];
+        };
+    }
+
+    addToCart(productId){
+        let matchedItem;
+          this.cartItems.forEach((item)=>{
+            if(item.productId === productId){
+              matchedItem = item;
+            }
+          });
+          if(matchedItem){
+            matchedItem.Quantity+=1;
+          }else{
+            this.cartItems.push({
+            productId,
+            Quantity: 1,
+            deliveryOptionsId: '1'
+            });
+          };
+        this.saveToStorage();
+    }
+
+    removeFromCart(productId){
+        const tempCart = []
+        this.cartItems.forEach((cartItem)=>{
+          if(cartItem.productId !== productId){
+            tempCart.push(cartItem)
+          };
+        });
+        this.cartItems = tempCart;
+        this.saveToStorage();
+    }
+
+    saveToStorage(){
+        localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+    }
+
+    UpdateCartCheckout(){
+        let cart_Quantity = 0;
+          this.cartItems.forEach((item)=>{
+            cart_Quantity+=item.Quantity;
+          });
+        return cart_Quantity;
+    }
+
+    updateDeliveryOptionId(productId,DeliveryOptionId){
+        let macthingItem;
+        this.cartItems.forEach((cartItem)=>{
+          if(cartItem.productId === productId){
+            macthingItem = cartItem;
+          }
+        });
+        if (!macthingItem || !isValidDeliveryOptionId(DeliveryOptionId)){
+          return;
+        }
+        macthingItem.deliveryOptionsId = DeliveryOptionId;
+        this.saveToStorage();
+    }
+
+    UpdateCartQuantityFromCheckout(id,number){
+        this.cartItems.forEach((item)=>{
+          if(item.productId === id){
+            item.Quantity = number;
+          };
+        });
+        this.saveToStorage();
+    }
+    
+}
+
+
+// Here by callling 2 different keys I can get each Cart varity with its own Storage (its like I have 2 box with different lock and I need to just give the keys)
+const cart = new Cart();   
+const Business = new Cart();
+// Here cart, Business are the instance of cart so we can check if its a instance or not
+
+
+// cart.localStorageKey = 'cart-OOP'
+// Business.localStorageKey = 'Bussines' 
+// cart.loadFromStorage();
+// Business.loadFromStorage();
+// if we don't use constructor we have to do this by manually editing the Fields/ variable in the class 
+
+
+
+
+
+console.log(cart);
+console.log(Business);
+
+console.log(Business instanceof Cart);  // checking if bussiness is a intance of the cart or not
+
+// cart.addToCart('83d4ca15-0f35-48f5-b7a3-1ea210004f2e');
+// console.log(cart)
+
