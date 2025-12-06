@@ -91,12 +91,14 @@ function Cart (localStorageKey){
 }
 
 const cart = Cart('cart-OOP');      
-// Here by callling 2 different keys I can get each Cart varity with its own Storage (its like I have 2 box with different lock and I need to just give the keys)
+// Here by callling 2 different keys I can get each Cart varity with its own Storage (its like I have 2 box with different 
+// lock and I need to just give the keys)
 const Business = Cart('Bussines');
-
 
 cart.loadFromStorage();
 Business.loadFromStorage();
+
+
 console.log(cart);
 console.log(Business);
 

@@ -117,7 +117,7 @@ describe("Test Suit: Order Summary",()=>{
   });
 
   it("checking product price Dollar Sign",()=>{
-    expect(document.querySelector(`.js_productDollarSignTest_jasmine_${productId_1}`).innerText).toContain('$21.80')
+    expect(document.querySelector(`.js_productDollarSignTest_jasmine_${productId_1}`).innerText).toContain('$10.90')
     expect(document.querySelector(`.js_productDollarSignTest_jasmine_${productId_2}`).innerText).toContain('$20.95')
   });
 

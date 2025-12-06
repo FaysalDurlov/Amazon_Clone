@@ -40,7 +40,7 @@ export function renderOrderSummary(){
                   </div>
 
                   <div class="product-price js_productDollarSignTest_jasmine_${matchedProduct.id}">
-                    $${(formatCurrency(matchedProduct.priceCent)*cartItem.Quantity).toFixed(2)}
+                    ${matchedProduct.getPrice()}
                   </div>
 
                   <div class="product-quantity js_product_quantityTest_${matchedProduct.id}">

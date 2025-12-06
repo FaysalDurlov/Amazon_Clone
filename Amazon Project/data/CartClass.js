@@ -5,17 +5,19 @@ class Cart {
     // localStorageKey = undefined;
 
     cartItems;
-    localStorageKey;   // the fileds of a class in always undefined by default
+    #localStorageKey;   // the fileds of a class in always undefined by default
 
 
     constructor(localStorageKeyParamiter){
-        this.localStorageKey = localStorageKeyParamiter
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKeyParamiter
+        this.#loadFromStorage();  
+        // this was a setup code when we used in cart_OOP.js file. A constructor 
+        // executes automaticly when we call class 
     }
 
 
-    loadFromStorage(){                                    // Load cart from local storage
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    #loadFromStorage(){                                    // Load cart from local storage
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
         console.log(this.cartItems)
         if(!this.cartItems){
           this.cartItems = [
@@ -64,7 +66,7 @@ class Cart {
     }
 
     saveToStorage(){
-        localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
     }
 
     UpdateCartCheckout(){
@@ -112,7 +114,6 @@ const Business = new Cart();
 // cart.loadFromStorage();
 // Business.loadFromStorage();
 // if we don't use constructor we have to do this by manually editing the Fields/ variable in the class 
-
 
 
 
