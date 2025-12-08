@@ -45,6 +45,8 @@ products.forEach((product)=>{
             </select>
           </div>
 
+          ${product.extraInfoHTML()}
+
           <div class="product-spacer"></div>
           
           <div class="added-to-cart js_added_massage_${product.id}">
@@ -59,7 +61,6 @@ products.forEach((product)=>{
         </div>`;
 });
 document.querySelector('.products-grid').innerHTML = productsHTML; // Here I just updated product html dymnamicly
-
 
 function UpdateCartQuantity(){
   let cartQuantity = 0;

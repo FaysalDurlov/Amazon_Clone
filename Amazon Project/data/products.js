@@ -30,7 +30,63 @@ class Product{
   getPrice(){
     return `$${formatCurrency(this.priceCent)}`
   }
+  extraInfoHTML(){
+    return "";
+  }
 }
+
+class Clothing extends Product{
+  sizeChartLink;
+  constructor(productDetails){
+    // we can do something like this. so here the new constructor will be called but it means we have to repeat codes that bad habit
+
+    // this.id = productDetails.id
+    // this.image = productDetails.image
+    // this.name = productDetails.name
+    // this.rating = productDetails.rating
+    // this.priceCent = productDetails.priceCent
+
+    // insted we can call super class constructor method for here the super class is Product (super Class = Parent Class)
+    super(productDetails); // here this means this child class constructor calls it super class constructor to create the filed then inherete those field 
+
+    /*
+    Here the super() created the fields of the parent class. so the fields are ready with datas now we can inherete those
+    to use in the child class
+    */
+
+    this.sizeChartLink = productDetails.sizeChartLink;
+
+    // after inhereting all the filed now we created a special that is just for the child class. (No repeat codes)
+  }
+
+  extraInfoHTML(){
+    // super.extraInfoHTML()
+    return `
+    <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
+    `
+  };
+}
+
+// const tShirt = new Clothing ({
+//   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+//   image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+//   name: "Adults Plain Cotton T-Shirt - 2 Pack",
+//   rating: {
+//     stars: 4.5,
+//     count: 56
+//   },
+//   priceCent: 799,
+//   keywords: [
+//     "tshirts",
+//     "apparel",
+//     "mens"
+//   ],
+//   type: "clothing",
+//   sizeChartLink: "images/clothing-size-chart.png"
+// });
+// console.log(tShirt);
+
+
 
 
 export const products = [
@@ -725,6 +781,10 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{
+  if(productDetails.type === "clothing"){
+    return new Clothing(productDetails)
+
+  }
   return new Product(productDetails);
 });
 
