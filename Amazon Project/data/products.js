@@ -61,6 +61,11 @@ class Clothing extends Product{
 
   extraInfoHTML(){
     // super.extraInfoHTML()
+    // here using this we can call the super class method in a child class. if needed. Just by usng Super keyword
+    // Note: since we override the "extraInfoHTML()" method. so now If i need to call "extraInfoHTML()" orginaal ver that is in parent class I need to we super.extraInfoHTML()
+    // let say there is another method "extraInfoHTML_2()" since its not overriden I can just call extraInfoHTML_2() without any super and I will get the parent version.
+    // Only difference is IF orrderriden super must be included otherwise no need the super keyword
+
     return `
     <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
     `
