@@ -5,6 +5,7 @@ import { renderPaymentSummary } from './Checkout/paymentSummary.js';
 
 // import "../data/CartClass.js";
 
+import "../data/car.js";
 
 renderOrderSummary();
 renderPaymentSummary();

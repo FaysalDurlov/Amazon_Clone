@@ -11,7 +11,7 @@ export function getProductFromList(product_id){
   return matchedProduct;
 }
 
-class Product{
+export class Product{
   id;
   image;
   name;
@@ -35,7 +35,8 @@ class Product{
   }
 }
 
-class Clothing extends Product{
+
+export class Clothing extends Product{
   sizeChartLink;
   constructor(productDetails){
     // we can do something like this. so here the new constructor will be called but it means we have to repeat codes that bad habit
@@ -59,6 +60,7 @@ class Clothing extends Product{
     // after inhereting all the filed now we created a special that is just for the child class. (No repeat codes)
   }
 
+  // method override
   extraInfoHTML(){
     // super.extraInfoHTML()
     // here using this we can call the super class method in a child class. if needed. Just by usng Super keyword
@@ -72,25 +74,22 @@ class Clothing extends Product{
   };
 }
 
-// const tShirt = new Clothing ({
-//   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
-//   image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-//   name: "Adults Plain Cotton T-Shirt - 2 Pack",
-//   rating: {
-//     stars: 4.5,
-//     count: 56
-//   },
-//   priceCent: 799,
-//   keywords: [
-//     "tshirts",
-//     "apparel",
-//     "mens"
-//   ],
-//   type: "clothing",
-//   sizeChartLink: "images/clothing-size-chart.png"
-// });
-// console.log(tShirt);
+export class Appliances extends Product{
+  instructionsLink;
+  warrantyLink;
 
+  constructor(productDetails){
+    super(productDetails)
+    this.instructionsLink = productDetails.instructionsLink
+    this.warrantyLink = productDetails.warrantyLink
+  }
+  extraInfoHTML(){
+    return `
+    <a href="${this.instructionsLink}" target="_blank">Instructions</a>
+    <a href="${this.warrantyLink}" target="_blank">Warranty</a>
+    `
+  }
+}
 
 
 
@@ -154,7 +153,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -339,7 +341,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliances",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -644,7 +649,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -704,7 +712,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -788,7 +799,9 @@ export const products = [
 ].map((productDetails)=>{
   if(productDetails.type === "clothing"){
     return new Clothing(productDetails)
-
+  }
+  else if(productDetails.type === "appliances"){
+    return new Appliances(productDetails)
   }
   return new Product(productDetails);
 });
