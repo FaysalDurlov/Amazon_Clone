@@ -6,42 +6,28 @@ import { renderPaymentSummary } from './Checkout/paymentSummary.js';
 // import "../data/car.js";
 // import "../data/backEndPractise.js";
 
-import { LoadProducts } from '../data/products.js';
+import { LoadProducts, LoadProductsFetch } from '../data/products.js';
 import {LoadCart} from "../data/cart.js";
 
 
 Promise.all([
-    new Promise((resolve)=>{
-        LoadProducts(()=>{
-            resolve('Value_1 passed')
-        });
-    }),
+
+    // new Promise((resolve)=>{
+    //     LoadProducts(()=>{
+    //         resolve('Value_1 passed')
+    //     });
+    // }),
+
+    LoadProductsFetch(),    // top part is just being applicated by this function using fetch(). adn its returing a promise so no issue
     new Promise((resolve)=>{
         LoadCart(()=>{
             resolve();
         })
     })
 ]).then((a)=>{
-    console.log(a)
     renderOrderSummary();
     renderPaymentSummary();
 })
-
-
-let status = false
-new Promise((resolve,reject)=>{
-    if(status){
-        resolve("status is True")
-    }else{
-        reject("status is false")
-    }
-}).then((value_from_Resolve)=>{
-    console.log(value_from_Resolve)
-}).catch((value_from_reject)=>{
-    console.log(value_from_reject)
-})
-
-
 
 
 // new Promise((resolve)=>{

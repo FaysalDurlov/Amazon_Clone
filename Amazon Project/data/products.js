@@ -94,6 +94,28 @@ export class Appliances extends Product{
 
 export let products = []
 
+
+
+export function LoadProductsFetch(){
+  const Promise = fetch("https://supersimplebackend.dev/products").then((response)=>{
+   return response.json(); 
+  }).then((productData)=>{
+    products = productData.map(
+      (productDetails)=>{
+        if(productDetails.type === "clothing"){
+          return new Clothing(productDetails)
+        }
+        else if(productDetails.type === "appliances"){
+          return new Appliances(productDetails)
+        }
+        return new Product(productDetails)
+      });
+    })
+   return Promise;
+}
+// LoadProductsFetch();
+
+
 export function LoadProducts(CallBackFuntionParameter){
   const xhr = new XMLHttpRequest();
 

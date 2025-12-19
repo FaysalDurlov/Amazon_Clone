@@ -1,6 +1,6 @@
 import {renderOrderSummary} from "../../../scripts/Checkout/orderSummary.js";
 import {loadFromStorage, cart} from "../../../data/cart.js";
-import {LoadProducts} from "../../../data/products.js";
+import {LoadProducts,LoadProductsFetch} from "../../../data/products.js";
 
 describe("Test Suit: Order Summary",()=>{
 
@@ -8,8 +8,15 @@ describe("Test Suit: Order Summary",()=>{
     const productId_2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d"
 
     beforeAll((done)=>{
-      LoadProducts(()=>{
-        done();
+
+      // LoadProducts(()=>{
+      //   done();
+      // })
+
+      // instead using this we can use this funtion bellow
+      LoadProductsFetch().then(()=>{ // since its its a fetch() and fetch() returns a promise and LoadProductsFetch() is also returing the promise. so we can use "then" method then we used done()
+        // this done() funtions means we can go to the next step of the code our wait is over!. unless we called done() we cant go to next step
+        done()
       })
     });
 
