@@ -1,89 +1,91 @@
 import {cart, addToCart, UpdateCartCheckout} from '../data/cart.js';
-import { products } from '../data/products.js';
+import { products, LoadProducts } from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
+LoadProducts(renderProductGrids)
 
-
-let productsHTML = '';
-let timeoutId;
-products.forEach((product)=>{
-    productsHTML+=`
-        <div class="product-container">
-          <div class="product-image-container">
-            <img class="product-image"
-              src="${product.image}">
-          </div>
-
-          <div class="product-name limit-text-to-2-lines">
-            ${product.name}
-          </div>
-
-          <div class="product-rating-container">
-            <img class="product-rating-stars"
-              src="${product.getStarUrl()}">
-            <div class="product-rating-count link-primary">
-              ${product.rating.count}
+function renderProductGrids(){
+  let productsHTML = '';
+  let timeoutId;
+  products.forEach((product)=>{
+      productsHTML+=`
+          <div class="product-container">
+            <div class="product-image-container">
+              <img class="product-image"
+                src="${product.image}">
             </div>
-          </div>
 
-          <div class="product-price">
-            ${product.getPrice()}
-          </div>
+            <div class="product-name limit-text-to-2-lines">
+              ${product.name}
+            </div>
 
-          <div class="product-quantity-container">
-            <select class="js_quantity_selector_${product.id}">
-              <option selected value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-          </div>
+            <div class="product-rating-container">
+              <img class="product-rating-stars"
+                src="${product.getStarUrl()}">
+              <div class="product-rating-count link-primary">
+                ${product.rating.count}
+              </div>
+            </div>
 
-          ${product.extraInfoHTML()}
+            <div class="product-price">
+              ${product.getPrice()}
+            </div>
 
-          <div class="product-spacer"></div>
-          
-          <div class="added-to-cart js_added_massage_${product.id}">
-            <img src="images/icons/checkmark.png">
-            Added
-          </div>
+            <div class="product-quantity-container">
+              <select class="js_quantity_selector_${product.id}">
+                <option selected value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
 
-          <button class="add-to-cart-button button-primary js-add-to-cart"
-          data-product-id="${product.id}">
-            Add to Cart
-          </button>
-        </div>`;
-});
-document.querySelector('.products-grid').innerHTML = productsHTML; // Here I just updated product html dymnamicly
+            ${product.extraInfoHTML()}
 
-function UpdateCartQuantity(){
-  let cartQuantity = 0;
-    cart.forEach((item)=>{
-      cartQuantity+=item.Quantity;
-    });
-    document.querySelector('.cart-quantity').innerHTML = cartQuantity;
-};
+            <div class="product-spacer"></div>
+            
+            <div class="added-to-cart js_added_massage_${product.id}">
+              <img src="images/icons/checkmark.png">
+              Added
+            </div>
 
-document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
-  button.addEventListener('click',()=>{
-    const productId = button.dataset.productId;
-    addToCart(productId);
-    UpdateCartQuantity();
-    
-    let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
-    document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
-    console.log(value);
-    document.querySelector(`.js_added_massage_${productId}`).classList.add('opacityClass');
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(()=>{
-      document.querySelector(`.js_added_massage_${productId}`).classList.remove('opacityClass');
-    },2000);
+            <button class="add-to-cart-button button-primary js-add-to-cart"
+            data-product-id="${product.id}">
+              Add to Cart
+            </button>
+          </div>`;
   });
-});
-document.querySelector('.js_cart_quantity').innerHTML = `${UpdateCartCheckout()}`;
+  document.querySelector('.products-grid').innerHTML = productsHTML; // Here I just updated product html dymnamicly
+
+  function UpdateCartQuantity(){
+    let cartQuantity = 0;
+      cart.forEach((item)=>{
+        cartQuantity+=item.Quantity;
+      });
+      document.querySelector('.cart-quantity').innerHTML = cartQuantity;
+  };
+
+  document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+    button.addEventListener('click',()=>{
+      const productId = button.dataset.productId;
+      addToCart(productId);
+      UpdateCartQuantity();
+      
+      let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
+      document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
+      console.log(value);
+      document.querySelector(`.js_added_massage_${productId}`).classList.add('opacityClass');
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(()=>{
+        document.querySelector(`.js_added_massage_${productId}`).classList.remove('opacityClass');
+      },2000);
+    });
+  });
+  document.querySelector('.js_cart_quantity').innerHTML = `${UpdateCartCheckout()}`;
+}

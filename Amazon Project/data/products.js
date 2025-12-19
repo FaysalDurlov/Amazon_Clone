@@ -1,4 +1,5 @@
 import {formatCurrency} from "../scripts/utils/money.js"
+import { loadFromStorage } from "./cart.js";
 
 
 export function getProductFromList(product_id){
@@ -22,7 +23,7 @@ export class Product{
     this.image = productDetails.image
     this.name = productDetails.name
     this.rating = productDetails.rating
-    this.priceCent = productDetails.priceCent
+    this.priceCent = productDetails.priceCents
   }
   getStarUrl(){
     return `images/ratings/rating-${this.rating.stars*10}.png`;
@@ -91,8 +92,32 @@ export class Appliances extends Product{
   }
 }
 
+export let products = []
+
+export function LoadProducts(CallBackFuntionParameter){
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load',()=>{
+    products = JSON.parse(xhr.response).map(
+      (productDetails)=>{
+        if(productDetails.type === "clothing"){
+          return new Clothing(productDetails)
+        }
+        else if(productDetails.type === "appliances"){
+          return new Appliances(productDetails)
+        }
+        return new Product(productDetails);
+      });
+
+    console.log('Load Products');
+    CallBackFuntionParameter();
+  });
+  xhr.open('GET',"https://supersimplebackend.dev/products");
+  xhr.send();
+}
 
 
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -805,4 +830,4 @@ export const products = [
   }
   return new Product(productDetails);
 });
-
+*/

@@ -1,10 +1,17 @@
 import {renderOrderSummary} from "../../../scripts/Checkout/orderSummary.js";
 import {loadFromStorage, cart} from "../../../data/cart.js";
+import {LoadProducts} from "../../../data/products.js";
 
 describe("Test Suit: Order Summary",()=>{
 
     const productId_1 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6"
     const productId_2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d"
+
+    beforeAll((done)=>{
+      LoadProducts(()=>{
+        done();
+      })
+    });
 
   beforeEach(()=>{
     cart.length = 0;
@@ -108,6 +115,7 @@ describe("Test Suit: Order Summary",()=>{
 
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(productId_2);
+
     // document.querySelector('.js_Order_cart_test_container').innerHTML = '';
   });
 

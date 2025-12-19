@@ -1,6 +1,13 @@
 import {Product,Clothing,Appliances,products} from "../../../data/products.js";
+import { LoadProducts } from "../../../data/products.js";
 
 describe("This is Test Suite For Class in Product.js File",()=>{
+  beforeAll((done)=>{
+    LoadProducts(()=>{
+      done()
+    })
+  })
+
     it("Test the Product Class Only",()=>{
         const NewProduct = new Product({
             id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -10,7 +17,7 @@ describe("This is Test Suite For Class in Product.js File",()=>{
               stars: 4.5,
               count: 87
             },
-            priceCent: 1090,
+            priceCents: 1090,
             keywords: [
               "socks",
               "sports",
@@ -38,7 +45,7 @@ describe("This is Test Suite For Class in Product.js File",()=>{
               stars: 4.5,
               count: 56
             },
-            priceCent: 799,
+            priceCents: 799,
             keywords: [
               "tshirts",
               "apparel",
@@ -69,7 +76,7 @@ describe("This is Test Suite For Class in Product.js File",()=>{
               stars: 5,
               count: 2197
             },
-            priceCent: 1899,
+            priceCents: 1899,
             keywords: [
               "toaster",
               "kitchen",

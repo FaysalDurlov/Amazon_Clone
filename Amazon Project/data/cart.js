@@ -82,3 +82,13 @@ export function updateDeliveryOptionId(productId,DeliveryOptionId){
   macthingItem.deliveryOptionsId = DeliveryOptionId;
   saveToStorage();
 };
+
+export function LoadCart(fun){
+  let xhr = new XMLHttpRequest()
+  xhr.addEventListener("load",()=>{
+    console.log(xhr.response);
+  })
+  xhr.open("GET","https://supersimplebackend.dev/cart");
+  xhr.send()
+  fun();
+}

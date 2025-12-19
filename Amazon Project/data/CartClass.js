@@ -1,6 +1,6 @@
 import {isValidDeliveryOptionId} from "../data/deliveryOptions.js";
 
-export class Cart {
+class Cart {
     // cartItems= undefined;
     // localStorageKey = undefined;
 
