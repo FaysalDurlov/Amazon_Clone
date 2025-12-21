@@ -110,7 +110,9 @@ export function LoadProductsFetch(){
         }
         return new Product(productDetails)
       });
-    })
+    }).catch(()=>{
+      console.log("Urfortunately error occur")
+    });
    return Promise;
 }
 // LoadProductsFetch();
@@ -134,9 +136,18 @@ export function LoadProducts(CallBackFuntionParameter){
     console.log('Load Products');
     CallBackFuntionParameter();
   });
+
+  xhr.addEventListener("error",(error)=>{
+    console.log("Urfortunately error occur")
+  });
+
   xhr.open('GET',"https://supersimplebackend.dev/products");
   xhr.send();
+
 }
+
+
+
 
 
 /*

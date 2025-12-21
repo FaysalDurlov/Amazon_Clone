@@ -10,6 +10,33 @@ import { LoadProducts, LoadProductsFetch } from '../data/products.js';
 import {LoadCart} from "../data/cart.js";
 
 
+
+
+
+async function loadPage() {
+    try{
+
+        await LoadProductsFetch();
+
+        const value = await new Promise((resolve)=>{
+            LoadCart(()=>{
+                throw "error Inside Await"
+                resolve();
+            })
+        })
+    } catch(error){
+        console.log(error)
+        console.log("Urfortunately error occur")
+    }
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+loadPage()
+
+
+
+
+/*
 Promise.all([
 
     // new Promise((resolve)=>{
@@ -28,6 +55,8 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 })
+*/
+
 
 
 // new Promise((resolve)=>{
