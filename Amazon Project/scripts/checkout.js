@@ -17,11 +17,10 @@ async function loadPage() {
     try{
 
         await LoadProductsFetch();
-
-        const value = await new Promise((resolve)=>{
+        const value = await new Promise((resolve, reject)=>{
             LoadCart(()=>{
-                throw "error Inside Await"
-                resolve();
+                // reject("this is Reject Error")
+                resolve("value3")
             })
         })
     } catch(error){

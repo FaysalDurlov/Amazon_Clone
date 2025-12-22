@@ -66,7 +66,7 @@ function renderProductGrids(){
   function UpdateCartQuantity(){
     let cartQuantity = 0;
       cart.forEach((item)=>{
-        cartQuantity+=item.Quantity;
+        cartQuantity+=item.quantity;
       });
       document.querySelector('.cart-quantity').innerHTML = cartQuantity;
   };

@@ -33,13 +33,13 @@ describe("Test Suit: Order Summary",()=>{
       return JSON.stringify([
         {
           productId:  productId_1,
-          Quantity: 2,
-          deliveryOptionsId: '1'
+          quantity: 2,
+          deliveryOptionId: '1'
         },
         {
           productId: productId_2,
-          Quantity: 1,
-          deliveryOptionsId: '2'
+          quantity: 1,
+          deliveryOptionId: '2'
         }
       ])
     });
@@ -59,13 +59,13 @@ describe("Test Suit: Order Summary",()=>{
     //   return JSON.stringify([
     //     {
     //       productId:  productId_1,
-    //       Quantity: 2,
-    //       deliveryOptionsId: '1'
+    //       quantity: 2,
+    //       deliveryOptionId: '1'
     //     },
     //     {
     //       productId: productId_2,
-    //       Quantity: 1,
-    //       deliveryOptionsId: '2'
+    //       quantity: 1,
+    //       deliveryOptionId: '2'
     //     }
     //   ])
     // });
@@ -97,12 +97,12 @@ describe("Test Suit: Order Summary",()=>{
     //     {
     //       productId:  productId_1,
     //       Quantity: 2,
-    //       deliveryOptionsId: '1'
+    //       deliveryOptionId: '1'
     //     },
     //     {
     //       productId: productId_2,
     //       Quantity: 1,
-    //       deliveryOptionsId: '2'
+    //       deliveryOptionId: '2'
     //     }
     //   ])
     // });
@@ -141,7 +141,7 @@ describe("Test Suit: Order Summary",()=>{
     expect(document.querySelector(`.deliveryOption_inputTestJasmine_${3}_${productId_1}`).checked).toEqual(true);
     expect(cart.length).toEqual(2);
     expect(cart[0].productId).toEqual(productId_1);
-    expect(cart[0].deliveryOptionsId).toEqual("3");
+    expect(cart[0].deliveryOptionId).toEqual("3");
     expect(document.querySelector(".js_shippingCostTestJasmine").innerText).toEqual("$14.98")
     expect(document.querySelector(".js_TotalCostCostTestJasmine").innerText).toEqual("$63.50")
   });

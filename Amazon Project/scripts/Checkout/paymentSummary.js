@@ -2,14 +2,15 @@ import {cart, UpdateCartCheckout} from '../../data/cart.js';
 import {getProductFromList, products} from '../../data/products.js';
 import {getDeliveryOption} from '../../data/deliveryOptions.js';
 import {formatCurrency} from '../utils/money.js';
+import {addOder} from "../../data/orders.js";
 
 export function renderPaymentSummary(){
     let ProductPriceCent = 0;
     let ShippingCostCent = 0;
     cart.forEach((cartItem)=>{
         const product = getProductFromList(cartItem.productId); 
-        ProductPriceCent += product.priceCent * cartItem.Quantity;
-        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionsId);
+        ProductPriceCent += product.priceCent * cartItem.quantity;
+        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
         ShippingCostCent+= deliveryOption.priceCents;
     })
     const TotalPriceBeforeTax = ProductPriceCent+ShippingCostCent;
@@ -48,9 +49,28 @@ export function renderPaymentSummary(){
             <div class="payment-summary-money js_TotalCostCostTestJasmine">$${formatCurrency(TotalCentsAfterTax)}</div>
         </div>
 
-        <button class="place-order-button button-primary">
+        <button class="place-order-button button-primary js_placeOrderButton">
             Place your order
         </button>`;
         
     document.querySelector('.js_payment_summary').innerHTML = paymentSummaryHTML;
+
+    document.querySelector('.js_placeOrderButton').addEventListener('click', async ()=>{
+        try{
+            const response = await fetch("https://supersimplebackend.dev/orders",{
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({cart: cart})
+            });
+    
+            const order = await response.json()
+            addOder(order)
+            
+
+        } catch(error){
+            console.log("Unexpected Error. Try again Later !");
+        }
+        
+        window.location.href = "orders.html";
+    })
 }

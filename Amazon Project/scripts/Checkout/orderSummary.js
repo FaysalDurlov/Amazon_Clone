@@ -16,7 +16,7 @@ export function renderOrderSummary(){
       let matchedProduct = getProductFromList(product_id);
 
       // Delivery Option "Delivery date"
-      const deliveryOptionId = cartItem.deliveryOptionsId;
+      const deliveryOptionId = cartItem.deliveryOptionId;
       
       let deliveryOption = getDeliveryOption(deliveryOptionId);
       const deliveryDateString = calculateDeliveryDate(deliveryOption);
@@ -45,7 +45,7 @@ export function renderOrderSummary(){
 
                   <div class="product-quantity js_product_quantityTest_${matchedProduct.id}">
                     <span>
-                      Quantity: <span class="quantity-label js_quantity_label_${matchedProduct.id}">${cartItem.Quantity}</span>
+                      Quantity: <span class="quantity-label js_quantity_label_${matchedProduct.id}">${cartItem.quantity}</span>
                     </span>
                     <span class="update-quantity-link link-primary js_update_Link" data-cart-product-id="${matchedProduct.id}">
                       Update
@@ -77,7 +77,7 @@ export function renderOrderSummary(){
 
       const priceString = deliveryOption.priceCents === 0? 'FREE': `$${formatCurrency(deliveryOption.priceCents)} -`;
 
-      const isChecked = deliveryOption.id === cartItem.deliveryOptionsId;
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
       html+=`
       <div class="delivery-option js_delivery_option" data-product-id="${matchingProduct.id}" data-delivery-option-id = "${deliveryOption.id}">
