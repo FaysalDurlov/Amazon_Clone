@@ -7,17 +7,25 @@ describe("Test Suit: Order Summary",()=>{
     const productId_1 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6"
     const productId_2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d"
 
-    beforeAll((done)=>{
+    beforeAll(async ()=>{
 
-      // LoadProducts(()=>{
-      //   done();
-      // })
+      /*
+        LoadProducts(()=>{
+          done();
+        })
+      */
 
-      // instead using this we can use this funtion bellow
-      LoadProductsFetch().then(()=>{ // since its its a fetch() and fetch() returns a promise and LoadProductsFetch() is also returing the promise. so we can use "then" method then we used done()
+        
+      /*
+      instead using this we can use this funtion bellow
+      LoadProductsFetch().then(()=>{ 
+        // since its its a fetch() and fetch() returns a promise and LoadProductsFetch() is also returing the promise. so we can use "then" method then we used done()
         // this done() funtions means we can go to the next step of the code our wait is over!. unless we called done() we cant go to next step
         done()
       })
+      */
+
+      await LoadProductsFetch();
     });
 
   beforeEach(()=>{

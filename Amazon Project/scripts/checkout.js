@@ -7,7 +7,7 @@ import { renderPaymentSummary } from './Checkout/paymentSummary.js';
 // import "../data/backEndPractise.js";
 
 import { LoadProducts, LoadProductsFetch } from '../data/products.js';
-import {LoadCart} from "../data/cart.js";
+import {LoadCart, loadCartFetch} from "../data/cart.js";
 
 
 
@@ -15,16 +15,12 @@ import {LoadCart} from "../data/cart.js";
 
 async function loadPage() {
     try{
+        await Promise.all([LoadProductsFetch(), loadCartFetch()])
 
-        await LoadProductsFetch();
-        const value = await new Promise((resolve, reject)=>{
-            LoadCart(()=>{
-                // reject("this is Reject Error")
-                resolve("value3")
-            })
-        })
+        // await LoadProductsFetch();
+        // await loadCartFetch();
+
     } catch(error){
-        console.log(error)
         console.log("Urfortunately error occur")
     }
     renderOrderSummary();

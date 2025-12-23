@@ -99,7 +99,7 @@ export let products = []
 export function LoadProductsFetch(){
   const Promise = fetch("https://supersimplebackend.dev/products").then((response)=>{
    return response.json(); 
-  }).then((productData)=>{
+  }).then((productData)=>{  //productData = response.json() after respose araived the program reading the json part of the response
     products = productData.map(
       (productDetails)=>{
         if(productDetails.type === "clothing"){

@@ -65,7 +65,6 @@ export function renderPaymentSummary(){
     
             const order = await response.json()
             addOder(order)
-            
 
         } catch(error){
             console.log("Unexpected Error. Try again Later !");
