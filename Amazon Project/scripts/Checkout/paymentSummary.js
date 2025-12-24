@@ -1,4 +1,4 @@
-import {cart, UpdateCartCheckout} from '../../data/cart.js';
+import {cart, UpdateCartCheckout, EmptyCart} from '../../data/cart.js';
 import {getProductFromList, products} from '../../data/products.js';
 import {getDeliveryOption} from '../../data/deliveryOptions.js';
 import {formatCurrency} from '../utils/money.js';
@@ -69,7 +69,7 @@ export function renderPaymentSummary(){
         } catch(error){
             console.log("Unexpected Error. Try again Later !");
         }
-        
+        EmptyCart()
         window.location.href = "orders.html";
     })
 }

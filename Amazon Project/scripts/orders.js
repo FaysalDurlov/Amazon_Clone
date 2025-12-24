@@ -2,9 +2,10 @@ import{orders} from "../data/orders.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import{formatCurrency} from "./utils/money.js";
 import{getProductFromList, LoadProductsFetch} from "../data/products.js";
+import {UpdateCartCheckout} from "../data/cart.js";
 
 
-
+document.querySelector(".js_order_cartQuantity").innerHTML = `${UpdateCartCheckout()}`
 await LoadProductsFetch(); 
 // this await only works because this js is a module. if it wasn't a module I would have to use it under an async function !
 
