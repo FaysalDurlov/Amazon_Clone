@@ -2,16 +2,6 @@ import {formatCurrency} from "../scripts/utils/money.js"
 import { loadFromStorage } from "./cart.js";
 
 
-export function getProductFromList(product_id){
-  let matchedProduct;
-  products.forEach((product)=>{
-    if(product.id === product_id){
-        matchedProduct = product
-    }
-  });
-  return matchedProduct;
-}
-
 export class Product{
   id;
   image;
@@ -94,6 +84,15 @@ export class Appliances extends Product{
 
 export let products = []
 
+export function getProductFromList(product_id){
+  let matchedProduct;
+  products.forEach((product)=>{
+    if(product.id === product_id){
+        matchedProduct = product
+    }
+  });
+  return matchedProduct;
+}
 
 
 export function LoadProductsFetch(){
