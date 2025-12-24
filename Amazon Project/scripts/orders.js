@@ -38,7 +38,9 @@ function renderOrder(){
                 </div>
             </div>`
     })
+
     document.querySelector('.js_order_grid').innerHTML = renderedPage
+
     document.querySelectorAll(".js_buy_again_button").forEach((button)=>{
         button.addEventListener('click',()=>{
             addToCart(button.dataset.productId)
@@ -81,8 +83,8 @@ function LoadProductList(Order){
             </button>
         </div>
         <div class="product-actions">
-            <a href="tracking.html">
-                <button class="track-package-button button-secondary">
+            <a href="tracking.html?orderId=${Order.id}&productId=${itemsInAOrder.productId}">
+                <button class="track-package-button button-secondary js_track_button">
                     Track package
                 </button>
             </a>

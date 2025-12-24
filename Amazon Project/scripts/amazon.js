@@ -81,10 +81,12 @@ function renderProductGrids(){
       document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
       console.log(value);
       document.querySelector(`.js_added_massage_${productId}`).classList.add('opacityClass');
+
       clearTimeout(timeoutId);
       timeoutId = setTimeout(()=>{
         document.querySelector(`.js_added_massage_${productId}`).classList.remove('opacityClass');
       },2000);
+      
     });
   });
   document.querySelector('.js_cart_quantity').innerHTML = `${UpdateCartCheckout()}`;
