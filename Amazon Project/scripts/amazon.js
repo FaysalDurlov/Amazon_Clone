@@ -1,4 +1,4 @@
-import {cart, addToCart, UpdateCartCheckout} from '../data/cart.js';
+import {cart, addToCart, UpdateCartCheckout, addMultipleItem} from '../data/cart.js';
 import { products, LoadProducts } from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -105,12 +105,19 @@ function renderProductGrids(){
   document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
     button.addEventListener('click',()=>{
       const productId = button.dataset.productId;
-      addToCart(productId);
-      UpdateCartQuantity();
-      
+    
       let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
       document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
-      console.log(value);
+
+      if(value != 1){
+        addMultipleItem(productId,value)
+        console.log(value)
+      }
+      else{
+        addToCart(productId);
+      }
+      UpdateCartQuantity();
+
       document.querySelector(`.js_added_massage_${productId}`).classList.add('opacityClass');
 
       clearTimeout(timeoutId);
