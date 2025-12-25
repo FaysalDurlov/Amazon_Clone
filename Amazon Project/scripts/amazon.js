@@ -106,12 +106,10 @@ function renderProductGrids(){
     button.addEventListener('click',()=>{
       const productId = button.dataset.productId;
     
-      let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
-      document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
 
+      let value = Number(document.querySelector(`.js_quantity_selector_${productId}`).value);
       if(value != 1){
         addMultipleItem(productId,value)
-        console.log(value)
       }
       else{
         addToCart(productId);
@@ -120,6 +118,7 @@ function renderProductGrids(){
 
       document.querySelector(`.js_added_massage_${productId}`).classList.add('opacityClass');
 
+      document.querySelector(`.js_quantity_selector_${productId}`).value = '1';
       clearTimeout(timeoutId);
       timeoutId = setTimeout(()=>{
         document.querySelector(`.js_added_massage_${productId}`).classList.remove('opacityClass');
@@ -127,6 +126,8 @@ function renderProductGrids(){
       
     });
   });
+
+  
   document.querySelector('.js_cart_quantity').innerHTML = `${UpdateCartCheckout()}`;
   document.querySelector(".js_searchButton").addEventListener("click",()=>{
     saveToUrl();

@@ -20,6 +20,7 @@ export function loadFromStorage(){ // Load cart from local storage
   };
 };
 
+
 export function addMultipleItem(productId,ProductQuantity){
   let matchedItem;
       cart.forEach((item)=>{
@@ -27,8 +28,9 @@ export function addMultipleItem(productId,ProductQuantity){
           matchedItem = item;
         }
       });
+
       if(matchedItem){
-        matchedItem.quantity+= quantity;
+        matchedItem.quantity+= ProductQuantity;
       }else{
         cart.push({
         productId,
