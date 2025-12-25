@@ -8,12 +8,14 @@ export class Product{
   name;
   rating;
   priceCent;
+  keywords;
   constructor(productDetails){
     this.id = productDetails.id
     this.image = productDetails.image
     this.name = productDetails.name
     this.rating = productDetails.rating
     this.priceCent = productDetails.priceCents
+    this.keywords = productDetails.keywords
   }
   getStarUrl(){
     return `images/ratings/rating-${this.rating.stars*10}.png`;
